@@ -93,6 +93,11 @@ public class fmenu extends javax.swing.JFrame {
 
         miPenjualan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         miPenjualan.setText("Penjualan");
+        miPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPenjualanActionPerformed(evt);
+            }
+        });
         mTransaksi.add(miPenjualan);
 
         jMenuBar1.add(mTransaksi);
@@ -101,10 +106,20 @@ public class fmenu extends javax.swing.JFrame {
 
         miLaporanStok.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         miLaporanStok.setText("Laporan Stok Barang");
+        miLaporanStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLaporanStokActionPerformed(evt);
+            }
+        });
         mLaporan.add(miLaporanStok);
 
         miLaporanPenjualan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         miLaporanPenjualan.setText("Laporan Penjualan");
+        miLaporanPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miLaporanPenjualanActionPerformed(evt);
+            }
+        });
         mLaporan.add(miLaporanPenjualan);
 
         jMenuBar1.add(mLaporan);
@@ -127,6 +142,9 @@ public class fmenu extends javax.swing.JFrame {
 
     private void miPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPegawaiActionPerformed
         // TODO add your handling code here:
+        fpegawai fb = new fpegawai();
+        fb.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_miPegawaiActionPerformed
 
     private void miBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBarangActionPerformed
@@ -135,6 +153,23 @@ public class fmenu extends javax.swing.JFrame {
         fb.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_miBarangActionPerformed
+
+    private void miPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPenjualanActionPerformed
+        // TODO add your handling code here:
+        fpenjualan fb = new fpenjualan();
+        fb.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_miPenjualanActionPerformed
+
+    private void miLaporanStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLaporanStokActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_miLaporanStokActionPerformed
+
+    private void miLaporanPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLaporanPenjualanActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_miLaporanPenjualanActionPerformed
 
     /**
      * @param args the command line arguments

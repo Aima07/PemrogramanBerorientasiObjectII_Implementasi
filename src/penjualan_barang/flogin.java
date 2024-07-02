@@ -17,8 +17,6 @@ import javax.swing.JOptionPane;
  * @author nurai
  */
 public class flogin extends javax.swing.JFrame {
-    
-   
 
     /**
      * Creates new form flogin
@@ -163,38 +161,38 @@ public class flogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if(tfUsername.getText().equals("") && tfPassword.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Username and Password Required !!");         
+        if (tfUsername.getText().equals("") && tfPassword.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Username and Password Required !!");
         } else {
             try {
-            java.sql.Connection conn = (java.sql.Connection) koneksi.getKoneksi();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("select * from tbl_login where username='" + tfUsername.getText() + "' and password = '" + tfPassword.getText() + "'");
-        
-            if (sql.next()) {
-                if (tfPassword.getText().equals(sql.getString("password"))) {
-                JOptionPane.showMessageDialog(null, "login berhasil");
-                this.dispose();
-                fmenu fb = new fmenu();
-                fb.setVisible(true);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "username and password salah");
-                tfUsername.setText("");
-                tfPassword.setText("");
-                tfUsername.requestFocus();
+                java.sql.Connection conn = (java.sql.Connection) koneksi.getKoneksi();
+                java.sql.Statement stm = conn.createStatement();
+                java.sql.ResultSet sql = stm.executeQuery("select * from tbl_login where username='" + tfUsername.getText() + "' and password = '" + tfPassword.getText() + "'");
+
+                if (sql.next()) {
+                    if (tfPassword.getText().equals(sql.getString("password"))) {
+                        JOptionPane.showMessageDialog(null, "login berhasil");
+                        this.dispose();
+                        fmenu fb = new fmenu();
+                        fb.setVisible(true);
+                        this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "username and password salah");
+                        tfUsername.setText("");
+                        tfPassword.setText("");
+                        tfUsername.requestFocus();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "username dan password tidak tersedia");
+                    tfUsername.setText("");
+                    tfPassword.setText("");
+                    tfUsername.requestFocus();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "username dan password tidak tersedia");
-                tfUsername.setText("");
-                tfPassword.setText("");
-                tfUsername.requestFocus();
-                }
-           } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "terjadi kesalahan");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "terjadi kesalahan");
+            }
         }
-    }   
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

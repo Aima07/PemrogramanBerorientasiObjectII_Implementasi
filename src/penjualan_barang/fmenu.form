@@ -45,6 +45,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Penjualan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miPenjualanActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -60,6 +63,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Laporan Stok Barang"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miLaporanStokActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miLaporanPenjualan">
               <Properties>
@@ -68,6 +74,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Laporan Penjualan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miLaporanPenjualanActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 package penjualan_barang;
 
 import java.sql.Connection;
@@ -12,12 +11,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author nurai
  */
 public class fbarang extends javax.swing.JFrame {
-private DefaultTableModel model;
+
+    private DefaultTableModel model;
+
     /**
      * Creates new form fbarang
      */
@@ -25,82 +27,82 @@ private DefaultTableModel model;
         initComponents();
         model = new DefaultTableModel();
         tBarang.setModel(model);
-        
-        model.addColumn ("kd_barang");
-        model.addColumn ("nama_barang");
-        model.addColumn ("jumlah_barang");
-        model.addColumn ("harga_beli");
-        model.addColumn ("harga_jual");
-        
+
+        model.addColumn("Kode Barang");
+        model.addColumn("Nama Barang");
+        model.addColumn("Jumlah Barang");
+        model.addColumn("Harga Beli");
+        model.addColumn("Harga Jual");
+
         loadData();
         kode();
         setLocationRelativeTo(null);
-       // setSize(1200,800);
+        // setSize(1200,800);
     }
-    
-    public final void loadData(){
+
+    public final void loadData() {
         btnSimpan.setEnabled(true);
         btnHapus.setEnabled(false);
         btnEdit.setEnabled(false);
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-        
+
         try {
             Connection c = koneksi.getKoneksi();
             Statement s = c.createStatement();
-            
+
             String sql = "SELECT * FROM tbl_barang";
             ResultSet r = s.executeQuery(sql);
-            
+
             while (r.next()) {
-               Object[] o = new Object[5];
+                Object[] o = new Object[5];
                 o[0] = r.getString("kd_barang");
                 o[1] = r.getString("nama_barang");
                 o[2] = r.getString("jumlah_barang");
                 o[3] = r.getString("harga_beli");
-                o[4] = r.getString("harga_jual"); 
-                
+                o[4] = r.getString("harga_jual");
+
                 model.addRow(o);
             }
-            
+
             r.close();
             s.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Telah terjadi kesalahan!" );
+            JOptionPane.showMessageDialog(null, "Telah terjadi kesalahan!");
         }
     }
-    
+
     public final void kode() {
         try {
             Connection c = koneksi.getKoneksi();
             Statement s = c.createStatement();
-            
+
             String sql = "SELECT * FROM tbl_barang ORDER by kd_barang desc";
             ResultSet r = s.executeQuery(sql);
-            
-        if (r.next()){
-            String nofak= r.getString("kd_barang").substring(1);
-            String AN = "" + (Integer.parseInt(nofak) + 1);
-            String Nol = "" ;
-            
-            if (AN.length() ==1) {
-                Nol = "000" ;    
-            } else if (AN.length() ==2) {
-                Nol = "00";
-            } else if (AN.length() ==3) {
-                Nol ="0";
-            } else if (AN.length() ==4) {
-                Nol = "" ;
+
+            if (r.next()) {
+                String nofak = r.getString("kd_barang").substring(1);
+                String AN = "" + (Integer.parseInt(nofak) + 1);
+                String Nol = "";
+
+                if (AN.length() == 1) {
+                    Nol = "000";
+                } else if (AN.length() == 2) {
+                    Nol = "00";
+                } else if (AN.length() == 3) {
+                    Nol = "0";
+                } else if (AN.length() == 4) {
+                    Nol = "";
+                }
+
+                tfKodeBarang.setText("B" + Nol + AN);
+            } else {
+                tfKodeBarang.setText("B0001");
             }
-            
-            tfKodeBarang.setText("B" + Nol + AN);
-        } else {
-            tfKodeBarang.setText ("B0001");
-        } 
-       } catch (SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "terjadi kesalahan");
-       }
-        
+        }
+
     }
 
     /**
@@ -223,7 +225,7 @@ private DefaultTableModel model;
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("CARI");
 
-        tBarang.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        tBarang.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         tBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -361,100 +363,98 @@ private DefaultTableModel model;
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         // TODO add your handling code here:
-        fmenu fb = new fmenu() ;
+        fmenu fb = new fmenu();
         fb.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnKembaliActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        if (
-                tfKodeBarang.getText().equals("") |
-                tfNamaBarang.getText().equals("") |
-                tfJumlahBarang.getText().equals("") |
-                tfHargaBeli.getText().equals("") |
-                tfHargaJual.getText().equals("")        
-                )
-        { JOptionPane.showMessageDialog (null, "LENGKAPI DATA!!!" , "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
+        if (tfKodeBarang.getText().equals("")
+                | tfNamaBarang.getText().equals("")
+                | tfJumlahBarang.getText().equals("")
+                | tfHargaBeli.getText().equals("")
+                | tfHargaJual.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LENGKAPI DATA!!!", "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
         } else {
-                String kbarang = tfKodeBarang.getText();
-                String nbarang = tfNamaBarang.getText();
-                String jbarang = tfJumlahBarang.getText();
-                String hbeli = tfHargaBeli.getText();
-                String hjual = tfHargaJual.getText();
-                
-        try {
+            String kbarang = tfKodeBarang.getText();
+            String nbarang = tfNamaBarang.getText();
+            String jbarang = tfJumlahBarang.getText();
+            String hbeli = tfHargaBeli.getText();
+            String hjual = tfHargaJual.getText();
+
+            try {
                 long millis = System.currentTimeMillis();
-                java.sql.Date date = new java.sql.Date (millis) ;
+                java.sql.Date date = new java.sql.Date(millis);
                 System.out.println(date);
-                
+
                 String tgl = date.toString();
-                
+
                 Connection c = koneksi.getKoneksi();
-                String sql = "INSERT INTO tbl_barang VALUES (?, ?, ?, ?, ?, ?)" ;
+                String sql = "INSERT INTO tbl_barang VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
-                
-                p.setString (1, kbarang);
-                p.setString (2, nbarang);
-                p.setString (3, jbarang);
-                p.setString (4, hbeli);
-                p.setString (5, hjual);
-                p.setString (6, tgl);
+
+                p.setString(1, kbarang);
+                p.setString(2, nbarang);
+                p.setString(3, jbarang);
+                p.setString(4, hbeli);
+                p.setString(5, hjual);
+                p.setString(6, tgl);
                 p.executeUpdate();
                 p.close();
-                
-        } catch (SQLException e){
-            System.out.println (e);
-        } finally {
-            loadData();
-            kode();
-            
-            tfNamaBarang.setText("");
-            tfJumlahBarang.setText ("");
-            tfHargaBeli.setText("");
-            tfHargaJual.setText ("");
-            
-            JOptionPane.showMessageDialog (null, "Data berhasil tersimpan!", "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
-            
-        }
-        
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            } finally {
+                loadData();
+                kode();
+
+                tfNamaBarang.setText("");
+                tfJumlahBarang.setText("");
+                tfHargaBeli.setText("");
+                tfHargaJual.setText("");
+
+                JOptionPane.showMessageDialog(null, "Data berhasil tersimpan!", "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        if(tfKodeBarang.getText().equals("") ||
-           tfNamaBarang.getText().equals("") ||
-           tfJumlahBarang.getText().equals("")|| 
-           tfHargaBeli.getText().equals("")||
-           tfHargaJual.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "LENGKAPI DATA !", "elektronik berkah", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        if (tfKodeBarang.getText().equals("")
+                || tfNamaBarang.getText().equals("")
+                || tfJumlahBarang.getText().equals("")
+                || tfHargaBeli.getText().equals("")
+                || tfHargaJual.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LENGKAPI DATA !", "elektronik berkah", JOptionPane.INFORMATION_MESSAGE);
+        } else {
             int i = tBarang.getSelectedRow();
             if (i == -1) {
-            return;
+                return;
 
-        }
+            }
             String user = (String) model.getValueAt(i, 0);
             try {
                 Connection c = koneksi.getKoneksi();
-        String sql = "UPDATE tbl_barang SET nama_barang = '" + tfNamaBarang.getText() + "', jumlah_barang='"+ tfJumlahBarang.getText() +
-        "', harga_beli='"+ tfHargaBeli.getText() + "', harga_jual='"+ tfHargaJual.getText() +"' WHERE kd_barang ='" + tfKodeBarang.getText() + "'";
-        PreparedStatement p = c.prepareStatement(sql);
-        p.executeUpdate();
-        p.close();
-        
-        } catch (SQLException e) {
-            System.out.println("Terjadi Error");
+                String sql = "UPDATE tbl_barang SET nama_barang = '" + tfNamaBarang.getText() + "', jumlah_barang='" + tfJumlahBarang.getText()
+                        + "', harga_beli='" + tfHargaBeli.getText() + "', harga_jual='" + tfHargaJual.getText() + "' WHERE kd_barang ='" + tfKodeBarang.getText() + "'";
+                PreparedStatement p = c.prepareStatement(sql);
+                p.executeUpdate();
+                p.close();
+
+            } catch (SQLException e) {
+                System.out.println("Terjadi Error");
             } finally {
-            loadData();
-            tfKodeBarang.setText("");
-            tfNamaBarang.setText("");
-            tfJumlahBarang.setText("");
-            tfHargaBeli.setText("");
-            tfHargaJual.setText("");
-            btnSimpan.setEnabled(true);
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+                tfKodeBarang.setText("");
+                tfNamaBarang.setText("");
+                tfJumlahBarang.setText("");
+                tfHargaBeli.setText("");
+                tfHargaJual.setText("");
+                btnSimpan.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Elektronik Berkah", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnEditActionPerformed
@@ -462,53 +462,53 @@ private DefaultTableModel model;
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
         try {
-            String sql ="DELETE from tbl_barang WHERE kd_barang='"+tfKodeBarang.getText()+"'";
-            java.sql.Connection conn = (Connection)koneksi.getKoneksi();
+            String sql = "DELETE from tbl_barang WHERE kd_barang='" + tfKodeBarang.getText() + "'";
+            java.sql.Connection conn = (Connection) koneksi.getKoneksi();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
-            
-            JOptionPane.showMessageDialog(this,"Berhasil dihapus!");
+
+            JOptionPane.showMessageDialog(this, "Berhasil dihapus!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-                loadData();
-                tfKodeBarang.setText("");
-                tfNamaBarang.setText("");
-                tfJumlahBarang.setText ("");
-                tfHargaBeli.setText("");
-                tfHargaJual.setText ("");
+        loadData();
+        tfKodeBarang.setText("");
+        tfNamaBarang.setText("");
+        tfJumlahBarang.setText("");
+        tfHargaBeli.setText("");
+        tfHargaJual.setText("");
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tfCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCariKeyReleased
         // TODO add your handling code here:
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-        
+
         try {
             Connection c = koneksi.getKoneksi();
             Statement s = c.createStatement();
-            
-            String sql = "select * from tbl_barang where kd_barang like '%" + tfCari.getText() + "%' or nama_barang like'%" + tfCari.getText() + "%'or jumlah_barang like'" + tfCari.getText() + "%' or harga_beli like'%" + tfCari.getText() + "%' " + "or harga_jual like'%" + tfCari.getText() +"%'";
-            
+
+            String sql = "select * from tbl_barang where kd_barang like '%" + tfCari.getText() + "%' or nama_barang like'%" + tfCari.getText() + "%'or jumlah_barang like'" + tfCari.getText() + "%' or harga_beli like'%" + tfCari.getText() + "%' " + "or harga_jual like'%" + tfCari.getText() + "%'";
+
             ResultSet r = s.executeQuery(sql);
-            
+
             while (r.next()) {
-            Object[] o = new Object[5];
-            o[0] = r.getString("kd_barang");
-            o[1] = r.getString("nama_barang");
-            o[2] = r.getString("jumlah_barang");
-            o[3] = r.getString("harga_beli");
-            o[4] = r.getString("harga_jual");
-            
-            model.addRow(o);
-        }
-         r.close();
-         s.close();
-         
+                Object[] o = new Object[5];
+                o[0] = r.getString("kd_barang");
+                o[1] = r.getString("nama_barang");
+                o[2] = r.getString("jumlah_barang");
+                o[3] = r.getString("harga_beli");
+                o[4] = r.getString("harga_jual");
+
+                model.addRow(o);
+            }
+            r.close();
+            s.close();
+
         } catch (SQLException e) {
             System.out.println("Terjadi Error");
         }
-        
+
     }//GEN-LAST:event_tfCariKeyReleased
 
     private void tBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tBarangMouseClicked
@@ -518,26 +518,26 @@ private DefaultTableModel model;
         btnEdit.setEnabled(true);
         btnHapus.setEnabled(true);
         int i = tBarang.getSelectedRow();
-        
+
         if (i == -1) {
-        return;
+            return;
         }
-        
-            String kbarang = (String) model.getValueAt(i,0);
-            tfKodeBarang.setText(kbarang);
-            tfKodeBarang.setEnabled(false);
-            
-            String nbarang = (String) model.getValueAt(i, 1);
-            tfNamaBarang.setText(nbarang);
-            
-            String jumlah = (String) model.getValueAt(i, 2);
-            tfJumlahBarang.setText(jumlah);
-            
-            String hbeli = (String) model.getValueAt(i, 3);
-            tfHargaBeli.setText(hbeli);
-            
-            String hjual = (String) model.getValueAt(i, 4);
-            tfHargaJual.setText(hjual);
+
+        String kbarang = (String) model.getValueAt(i, 0);
+        tfKodeBarang.setText(kbarang);
+        tfKodeBarang.setEnabled(false);
+
+        String nbarang = (String) model.getValueAt(i, 1);
+        tfNamaBarang.setText(nbarang);
+
+        String jumlah = (String) model.getValueAt(i, 2);
+        tfJumlahBarang.setText(jumlah);
+
+        String hbeli = (String) model.getValueAt(i, 3);
+        tfHargaBeli.setText(hbeli);
+
+        String hjual = (String) model.getValueAt(i, 4);
+        tfHargaJual.setText(hjual);
     }//GEN-LAST:event_tBarangMouseClicked
 
     /**
